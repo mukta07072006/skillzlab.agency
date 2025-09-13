@@ -1,836 +1,702 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillzLab Agency | Digital Excellence</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Base Styles */
-        :root {
-            --neon-cyan: #0ff;
-            --neon-purple: #a239ea;
-            --neon-blue: #4d77ff;
-            --dark-bg: #0a0a0a;
-            --dark-card: #121212;
-            --text-light: #f8f8f8;
-            --text-gray: #aaa;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        section {
-            padding: 80px 0;
-        }
-        
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        
-        p {
-            margin-bottom: 20px;
-            color: var(--text-gray);
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: transparent;
-            color: var(--text-light);
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            border: 2px solid var(--neon-cyan);
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: var(--neon-cyan);
-            transition: all 0.3s ease;
-            z-index: -1;
-        }
-        
-        .btn:hover::before {
-            width: 100%;
-        }
-        
-        .btn:hover {
-            color: var(--dark-bg);
-            box-shadow: 0 0 15px var(--neon-cyan);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230a0a0a"/><path d="M0 0L100 100" stroke="%231a1a1a" stroke-width="2"/><path d="M100 0L0 100" stroke="%231a1a1a" stroke-width="2"/></svg>');
-            background-size: cover;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(10, 162, 255, 0.1), transparent 70%);
-            animation: pulse 8s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-            100% { opacity: 0.3; }
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
-            animation: glow 2s infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan); }
-            to { text-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan), 0 0 35px var(--neon-cyan); }
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-        }
-        
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .service-card {
-            background: var(--dark-card);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px var(--neon-cyan);
-        }
-        
-        .service-card:nth-child(2) .service-icon {
-            color: var(--neon-purple);
-            text-shadow: 0 0 10px var(--neon-purple);
-        }
-        
-        .service-card:nth-child(3) .service-icon {
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-        
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        /* Packages Section */
-        .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .package-card {
-            background: var(--dark-card);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-            position: relative;
-        }
-        
-        .package-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple), var(--neon-blue));
-            z-index: -1;
-            border-radius: 10px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .package-card:hover::before {
-            opacity: 1;
-        }
-        
-        .package-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        .package-card.featured {
-            border-color: var(--neon-cyan);
-            transform: scale(1.05);
-        }
-        
-        .package-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .package-name {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--neon-cyan);
-        }
-        
-        .package-price {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--text-light);
-        }
-        
-        .package-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .package-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #222;
-        }
-        
-        /* Portfolio Section */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .portfolio-item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 250px;
-        }
-        
-        .portfolio-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-        
-        .portfolio-item:hover .portfolio-img {
-            transform: scale(1.1);
-        }
-        
-        /* Why Choose Us Section */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-item {
-            text-align: center;
-            padding: 30px;
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--neon-cyan);
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px var(--neon-cyan);
-        }
-        
-        /* Testimonials Section */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .testimonial-content {
-            margin-bottom: 20px;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .author-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-            object-fit: cover;
-            border: 2px solid var(--neon-cyan);
-        }
-        
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-        }
-        
-        .contact-form {
-            display: grid;
-            gap: 20px;
-        }
-        
-        .form-group {
-            position: relative;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 15px;
-            background: transparent;
-            border: 1px solid #333;
-            border-radius: 5px;
-            color: var(--text-light);
-            transition: all 0.3s ease;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 10px var(--neon-cyan);
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .contact-method {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .contact-icon {
-            font-size: 1.5rem;
-            color: var(--neon-cyan);
-            margin-right: 15px;
-            text-shadow: 0 0 10px var(--neon-cyan);
-        }
-        
-        /* Footer */
-        footer {
-            background: #080808;
-            padding: 60px 0 30px;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--text-light);
-            text-shadow: 0 0 10px var(--neon-cyan);
-        }
-        
-        .footer-links h4 {
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-links h4::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: var(--neon-cyan);
-        }
-        
-        .footer-links ul {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: var(--text-gray);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--neon-cyan);
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: var(--dark-card);
-            border-radius: 50%;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            background: var(--neon-cyan);
-            color: var(--dark-bg);
-            box-shadow: 0 0 15px var(--neon-cyan);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #222;
-            color: var(--text-gray);
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            
-            .package-card.featured {
-                transform: scale(1);
-            }
-            
-            .package-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SkillzLab - Static</title>
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Optional: tweak Tailwind config for smoother fonts/animations -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            bounce: 'bounce 2s infinite'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide icons (CDN) -->
+  <script src="https://unpkg.com/lucide@0.258.0/dist/lucide.min.js"></script>
+
+  <style>
+    /* small helper to make lucide icons inherit tailwind sizing classnames */
+    svg[lucide] { display: inline-block; vertical-align: middle; }
+  </style>
 </head>
-<body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Empower Your Brand with SkillzLab Agency</h1>
-                <p>We transform ideas into digital reality with cutting-edge web development, stunning video editing, and captivating graphic design solutions.</p>
-                <a href="#contact" class="btn">Get Started</a>
-            </div>
-        </div>
-    </section>
+<body class="min-h-screen bg-white">
 
-    <!-- Services Section -->
-    <section id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Services</h2>
-                <p>We offer comprehensive digital solutions to elevate your brand</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Website Development</h3>
-                    <p>Custom, responsive websites built with the latest technologies to ensure optimal performance and user experience.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <h3>Video Editing</h3>
-                    <p>Professional video editing services that tell your story and engage your audience with compelling visuals.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3>Graphics Design</h3>
-                    <p>Creative design solutions that capture your brand identity and make a lasting impression on your customers.</p>
-                </div>
-            </div>
+  <!-- Navigation -->
+  <nav id="mainNav" class="fixed w-full z-50 transition-all duration-500 bg-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-2.5 rounded-xl shadow-lg">
+            <i data-lucide="zap" class="h-7 w-7"></i>
+          </div>
+          <span class="ml-3 text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+            SkillzLab
+          </span>
         </div>
-    </section>
 
-    <!-- Packages Section -->
-    <section id="packages">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Packages</h2>
-                <p>Choose the perfect plan for your business needs</p>
-            </div>
-            <div class="packages-grid">
-                <div class="package-card">
-                    <h3 class="package-name">Starter</h3>
-                    <div class="package-price">$299</div>
-                    <ul class="package-features">
-                        <li>5 Page Website</li>
-                        <li>Basic SEO Setup</li>
-                        <li>1 Month Support</li>
-                        <li>Mobile Responsive</li>
-                        <li>Contact Form</li>
-                    </ul>
-                    <a href="#contact" class="btn">Get Started</a>
-                </div>
-                <div class="package-card featured">
-                    <h3 class="package-name">Pro</h3>
-                    <div class="package-price">$599</div>
-                    <ul class="package-features">
-                        <li>10 Page Website</li>
-                        <li>Advanced SEO</li>
-                        <li>3 Months Support</li>
-                        <li>E-commerce Functionality</li>
-                        <li>Social Media Integration</li>
-                    </ul>
-                    <a href="#contact" class="btn">Get Started</a>
-                </div>
-                <div class="package-card">
-                    <h3 class="package-name">Premium</h3>
-                    <div class="package-price">$999</div>
-                    <ul class="package-features">
-                        <li>Unlimited Pages</li>
-                        <li>Full SEO Package</li>
-                        <li>6 Months Support</li>
-                        <li>Custom Web Applications</li>
-                        <li>Video Content Integration</li>
-                    </ul>
-                    <a href="#contact" class="btn">Get Started</a>
-                </div>
-            </div>
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#home" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium">Home</a>
+          <a href="#services" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium">Services</a>
+          <a href="#portfolio" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium">Portfolio</a>
+          <a href="#about" class="text-gray-700 hover:text-indigo-600 transition-all duration-300 font-medium">About</a>
+          <a href="#contact" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-full hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-medium">
+            Get Started
+          </a>
         </div>
-    </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Portfolio</h2>
-                <p>Check out some of our recent work</p>
-            </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Website Project" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>E-commerce Website</h3>
-                        <p>Fully responsive online store with payment integration</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Video Project" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Product Launch Video</h3>
-                        <p>Engaging promotional video for tech product launch</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Design Project" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Brand Identity Design</h3>
-                        <p>Complete branding package for startup company</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Toggle menu">
+          <i data-lucide="menu" class="h-6 w-6"></i>
+        </button>
+      </div>
+    </div>
 
-    <!-- Why Choose Us Section -->
-    <section id="why-choose">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose Us</h2>
-                <p>Discover what makes SkillzLab Agency stand out</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3>Expert Team</h3>
-                    <p>Our team consists of industry experts with years of experience in digital solutions.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-tag"></i>
-                    </div>
-                    <h3>Affordable Pricing</h3>
-                    <p>We offer competitive pricing without compromising on quality.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3>Creative Solutions</h3>
-                    <p>We think outside the box to deliver innovative solutions for your business.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Mobile Menu (hidden by default) -->
+    <div id="mobileMenu" class="md:hidden hidden bg-white/95 backdrop-blur-lg border-t border-gray-100">
+      <div class="px-4 py-6 space-y-4">
+        <a href="#home" class="block text-gray-700 hover:text-indigo-600 font-medium">Home</a>
+        <a href="#services" class="block text-gray-700 hover:text-indigo-600 font-medium">Services</a>
+        <a href="#portfolio" class="block text-gray-700 hover:text-indigo-600 font-medium">Portfolio</a>
+        <a href="#about" class="block text-gray-700 hover:text-indigo-600 font-medium">About</a>
+        <a href="#contact" class="block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-full text-center font-medium">Contact</a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Client Testimonials</h2>
-                <p>What our clients say about us</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"SkillzLab transformed our online presence with a stunning website and engaging video content. Their team was professional and delivered beyond our expectations."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Client" class="author-img">
-                        <div>
-                            <h4>Sarah Johnson</h4>
-                            <p>CEO, TechInnovate</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"The graphic design work from SkillzLab completely revitalized our brand identity. Their creativity and attention to detail are unmatched."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="author-img">
-                        <div>
-                            <h4>Michael Chen</h4>
-                            <p>Marketing Director, Nova Products</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50"></div>
+    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%239C92AC%22 fill-opacity=%220.05%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-                <p>Get in touch with us to discuss your project</p>
-            </div>
-            <div class="contact-grid">
-                <form class="contact-form">
-                    <div class="form-group">
-                        <input type="text" class="form-input" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-input" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-input" placeholder="Subject">
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-input" rows="5" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
-                <div class="contact-info">
-                    <div class="contact-method">
-                        <div class="contact-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div>
-                            <h3>WhatsApp</h3>
-                            <p>+1 (555) 123-4567</p>
-                        </div>
-                    </div>
-                    <div class="contact-method">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h3>Email</h3>
-                            <p>info@skillzlabagency.com</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight">
+          Creative Digital
+          <span class="block bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Solutions
+          </span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed max-w-3xl mx-auto">
+          We craft exceptional digital experiences through web development, video editing, 
+          and graphic design. Transform your vision into reality with our creative expertise.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-10 py-4 rounded-full hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-xl flex items-center text-lg font-medium">
+            Start Your Project
+            <i data-lucide="arrow-right" class="ml-3 h-5 w-5"></i>
+          </button>
+          <button class="border-2 border-gray-300 text-gray-700 px-10 py-4 rounded-full hover:border-indigo-600 hover:text-indigo-600 transition-all duration-300 flex items-center text-lg font-medium">
+            <i data-lucide="play" class="mr-3 h-5 w-5"></i>
+            View Our Work
+          </button>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <div class="footer-logo">SkillzLab Agency</div>
-                    <p>Transforming ideas into digital reality with cutting-edge solutions.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#packages">Packages</a></li>
-                        <li><a href="#portfolio">Portfolio</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#">Website Development</a></li>
-                        <li><a href="#">Video Editing</a></li>
-                        <li><a href="#">Graphics Design</a></li>
-                        <li><a href="#">SEO Optimization</a></li>
-                        <li><a href="#">Brand Identity</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 SkillzLab Agency. All Rights Reserved.</p>
-            </div>
+    <!-- Floating Elements -->
+    <div class="absolute top-20 left-10 animate-bounce">
+      <div class="bg-white p-4 rounded-2xl shadow-lg">
+        <i data-lucide="code" class="h-8 w-8 text-indigo-600"></i>
+      </div>
+    </div>
+    <div class="absolute top-40 right-10 animate-bounce" style="animation-delay:1s">
+      <div class="bg-white p-4 rounded-2xl shadow-lg">
+        <i data-lucide="video" class="h-8 w-8 text-purple-600"></i>
+      </div>
+    </div>
+    <div class="absolute bottom-40 left-20 animate-bounce" style="animation-delay:2s">
+      <div class="bg-white p-4 rounded-2xl shadow-lg">
+        <i data-lucide="palette" class="h-8 w-8 text-pink-600"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-20 bg-gradient-to-r from-gray-900 via-indigo-900 to-purple-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center group">
+          <div class="bg-white/10 backdrop-blur-sm p-4 rounded-2xl mb-4 mx-auto w-fit group-hover:bg-white/20 transition-all duration-300">
+            <i data-lucide="users" class="h-8 w-8 text-white mx-auto"></i>
+          </div>
+          <div class="text-3xl md:text-4xl font-bold text-white mb-2">200+</div>
+          <div class="text-gray-300 font-medium">Happy Clients</div>
         </div>
-    </footer>
+
+        <div class="text-center group">
+          <div class="bg-white/10 backdrop-blur-sm p-4 rounded-2xl mb-4 mx-auto w-fit group-hover:bg-white/20 transition-all duration-300">
+            <i data-lucide="trophy" class="h-8 w-8 text-white mx-auto"></i>
+          </div>
+          <div class="text-3xl md:text-4xl font-bold text-white mb-2">500+</div>
+          <div class="text-gray-300 font-medium">Projects Completed</div>
+        </div>
+
+        <div class="text-center group">
+          <div class="bg-white/10 backdrop-blur-sm p-4 rounded-2xl mb-4 mx-auto w-fit group-hover:bg-white/20 transition-all duration-300">
+            <i data-lucide="clock" class="h-8 w-8 text-white mx-auto"></i>
+          </div>
+          <div class="text-3xl md:text-4xl font-bold text-white mb-2">5+</div>
+          <div class="text-gray-300 font-medium">Years Experience</div>
+        </div>
+
+        <div class="text-center group">
+          <div class="bg-white/10 backdrop-blur-sm p-4 rounded-2xl mb-4 mx-auto w-fit group-hover:bg-white/20 transition-all duration-300">
+            <i data-lucide="star" class="h-8 w-8 text-white mx-auto"></i>
+          </div>
+          <div class="text-3xl md:text-4xl font-bold text-white mb-2">4.9</div>
+          <div class="text-gray-300 font-medium">Average Rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-20">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Services</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          We offer comprehensive digital solutions to help your business grow and succeed 
+          in today's competitive market.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Web Development -->
+        <div class="group relative bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3">
+          <div class="bg-gradient-to-r from-blue-500 to-cyan-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i data-lucide="code" class="h-8 w-8 text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Web Development</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">Modern, responsive websites and web applications built with cutting-edge technologies.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              React &amp; Next.js
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              E-commerce Solutions
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              Custom CMS
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              API Integration
+            </li>
+          </ul>
+          <button class="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-4 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-medium">
+            Learn More
+          </button>
+        </div>
+
+        <!-- Video Editing -->
+        <div class="group relative bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3">
+          <div class="bg-gradient-to-r from-purple-500 to-pink-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i data-lucide="video" class="h-8 w-8 text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Video Editing</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">Professional video production and editing services for all your marketing needs.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              Motion Graphics
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              Color Correction
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              Sound Design
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              Social Media Videos
+            </li>
+          </ul>
+          <button class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-medium">
+            Learn More
+          </button>
+        </div>
+
+        <!-- Graphics Design -->
+        <div class="group relative bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3">
+          <div class="bg-gradient-to-r from-orange-500 to-red-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i data-lucide="palette" class="h-8 w-8 text-white"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Graphics Design</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">Creative visual solutions that make your brand stand out from the competition.</p>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              Brand Identity
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              Print Design
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              Digital Assets
+            </li>
+            <li class="flex items-center text-gray-700">
+              <i data-lucide="check-circle" class="h-5 w-5 text-green-500 mr-3 flex-shrink-0"></i>
+              UI/UX Design
+            </li>
+          </ul>
+          <button class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-4 rounded-2xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-medium">
+            Learn More
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-20">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Portfolio</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Explore some of our recent projects and see how we've helped businesses 
+          achieve their digital goals.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Project 1 -->
+        <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+          <div class="relative overflow-hidden">
+            <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800" alt="E-commerce Platform" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm font-medium text-indigo-600 mb-2">Web Development</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">E-commerce Platform</h3>
+            <p class="text-gray-600">Modern online store with advanced features</p>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+          <div class="relative overflow-hidden">
+            <img src="https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Brand Campaign Video" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm font-medium text-indigo-600 mb-2">Video Editing</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Brand Campaign Video</h3>
+            <p class="text-gray-600">Engaging promotional video content</p>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+          <div class="relative overflow-hidden">
+            <img src="https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Corporate Identity" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm font-medium text-indigo-600 mb-2">Graphics Design</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Corporate Identity</h3>
+            <p class="text-gray-600">Complete brand identity package</p>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+          <div class="relative overflow-hidden">
+            <img src="https://images.pexels.com/photos/196646/pexels-photo-196646.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mobile App UI" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm font-medium text-indigo-600 mb-2">Web Development</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Mobile App UI</h3>
+            <p class="text-gray-600">Intuitive mobile application design</p>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+          <div class="relative overflow-hidden">
+            <img src="https://images.pexels.com/photos/7991580/pexels-photo-7991580.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Showcase" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm font-medium text-indigo-600 mb-2">Video Editing</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Product Showcase</h3>
+            <p class="text-gray-600">Professional product demonstration</p>
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+          <div class="relative overflow-hidden">
+            <img src="https://images.pexels.com/photos/196647/pexels-photo-196647.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Marketing Materials" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-6">
+            <div class="text-sm font-medium text-indigo-600 mb-2">Graphics Design</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Marketing Materials</h3>
+            <p class="text-gray-600">Print and digital marketing assets</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-8">About SkillzLab</h2>
+          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+            We are a passionate team of digital creators specializing in mid-range, 
+            high-quality solutions for businesses of all sizes. Our mission is to bridge 
+            the gap between creativity and technology.
+          </p>
+          <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+            With over 5 years of experience and 200+ satisfied clients, we've established 
+            ourselves as a trusted partner for comprehensive digital solutions.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <div class="bg-green-100 p-2 rounded-lg mr-4">
+                <i data-lucide="check-circle" class="h-6 w-6 text-green-600"></i>
+              </div>
+              <span class="text-gray-700 font-medium">Expert team of creative professionals</span>
+            </div>
+            <div class="flex items-center">
+              <div class="bg-blue-100 p-2 rounded-lg mr-4">
+                <i data-lucide="target" class="h-6 w-6 text-blue-600"></i>
+              </div>
+              <span class="text-gray-700 font-medium">Competitive pricing for mid-range market</span>
+            </div>
+            <div class="flex items-center">
+              <div class="bg-purple-100 p-2 rounded-lg mr-4">
+                <i data-lucide="award" class="h-6 w-6 text-purple-600"></i>
+              </div>
+              <span class="text-gray-700 font-medium">Timely delivery and excellent support</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-3xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
+            <i data-lucide="globe" class="h-12 w-12 text-indigo-600 mb-4"></i>
+            <h3 class="font-bold text-gray-900 mb-2">Global Reach</h3>
+            <p class="text-gray-600 text-sm">Serving clients worldwide</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-purple-50 to-pink-100 p-8 rounded-3xl transform -rotate-3 hover:rotate-0 transition-transform duration-300 mt-8">
+            <i data-lucide="heart" class="h-12 w-12 text-purple-600 mb-4"></i>
+            <h3 class="font-bold text-gray-900 mb-2">Client Love</h3>
+            <p class="text-gray-600 text-sm">4.9/5 satisfaction rate</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-orange-50 to-red-100 p-8 rounded-3xl transform rotate-2 hover:rotate-0 transition-transform duration-300 -mt-4">
+            <i data-lucide="zap" class="h-12 w-12 text-orange-600 mb-4"></i>
+            <h3 class="font-bold text-gray-900 mb-2">Fast Delivery</h3>
+            <p class="text-gray-600 text-sm">Quick turnaround times</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-8 rounded-3xl transform -rotate-2 hover:rotate-0 transition-transform duration-300 mt-4">
+            <i data-lucide="star" class="h-12 w-12 text-green-600 mb-4"></i>
+            <h3 class="font-bold text-gray-900 mb-2">Quality First</h3>
+            <p class="text-gray-600 text-sm">Excellence in every project</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-20">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">What Our Clients Say</h2>
+        <p class="text-xl text-gray-600">Don't just take our word for it</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="flex items-center mb-6">
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 mb-8 italic leading-relaxed">"SkillzLab transformed our digital presence completely. Their attention to detail and creative approach exceeded our expectations."</p>
+          <div class="flex items-center">
+            <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Sarah Johnson" class="w-12 h-12 rounded-full object-cover mr-4" />
+            <div>
+              <h4 class="font-bold text-gray-900">Sarah Johnson</h4>
+              <p class="text-gray-600 text-sm">CEO, TechStart</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="flex items-center mb-6">
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 mb-8 italic leading-relaxed">"The video content they created for our campaign was outstanding. Professional quality at competitive rates."</p>
+          <div class="flex items-center">
+            <img src="https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Mike Chen" class="w-12 h-12 rounded-full object-cover mr-4" />
+            <div>
+              <h4 class="font-bold text-gray-900">Mike Chen</h4>
+              <p class="text-gray-600 text-sm">Marketing Director</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="flex items-center mb-6">
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+            <i data-lucide="star" class="h-5 w-5 text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 mb-8 italic leading-relaxed">"Their graphic design work perfectly captured our brand vision. Highly recommended for creative projects."</p>
+          <div class="flex items-center">
+            <img src="https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=150" alt="Emma Rodriguez" class="w-12 h-12 rounded-full object-cover mr-4" />
+            <div>
+              <h4 class="font-bold text-gray-900">Emma Rodriguez</h4>
+              <p class="text-gray-600 text-sm">Brand Manager</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-24 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">Let's Create Something Amazing</h2>
+          <p class="text-xl text-gray-300 mb-12 leading-relaxed">
+            Ready to transform your ideas into reality? Get in touch with us today 
+            and let's discuss your next project.
+          </p>
+
+          <div class="space-y-8">
+            <div class="flex items-center">
+              <div class="bg-white/10 backdrop-blur-sm p-3 rounded-2xl mr-6">
+                <i data-lucide="mail" class="h-6 w-6 text-white"></i>
+              </div>
+              <div>
+                <div class="text-gray-300 text-sm">Email us</div>
+                <div class="text-white font-medium">hello@skillzlab.com</div>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div class="bg-white/10 backdrop-blur-sm p-3 rounded-2xl mr-6">
+                <i data-lucide="phone" class="h-6 w-6 text-white"></i>
+              </div>
+              <div>
+                <div class="text-gray-300 text-sm">Call us</div>
+                <div class="text-white font-medium">+1 (555) 123-4567</div>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div class="bg-white/10 backdrop-blur-sm p-3 rounded-2xl mr-6">
+                <i data-lucide="map-pin" class="h-6 w-6 text-white"></i>
+              </div>
+              <div>
+                <div class="text-gray-300 text-sm">Visit us</div>
+                <div class="text-white font-medium">New York, NY 10001</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+          <form class="space-y-6" onsubmit="event.preventDefault(); alert('Form submitted (static demo)')">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">First Name</label>
+                <input type="text" class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-400 backdrop-blur-sm" placeholder="John" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Last Name</label>
+                <input type="text" class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-400 backdrop-blur-sm" placeholder="Doe" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+              <input type="email" class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-400 backdrop-blur-sm" placeholder="john@example.com" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Service</label>
+              <select class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white backdrop-blur-sm">
+                <option value="">Select a service</option>
+                <option value="web">Web Development</option>
+                <option value="video">Video Editing</option>
+                <option value="graphics">Graphics Design</option>
+                <option value="all">All Services</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+              <textarea rows="4" class="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-400 backdrop-blur-sm resize-none" placeholder="Tell us about your project..."></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-2xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-medium">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8 mb-12">
+        <div class="md:col-span-2">
+          <div class="flex items-center mb-6">
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-2.5 rounded-xl">
+              <i data-lucide="zap" class="h-7 w-7"></i>
+            </div>
+            <span class="ml-3 text-2xl font-bold text-white">SkillzLab</span>
+          </div>
+          <p class="text-gray-400 mb-6 max-w-md leading-relaxed">
+            Transforming ideas into digital reality through creative web development, 
+            professional video editing, and stunning graphic design.
+          </p>
+          <div class="flex space-x-4">
+            <div class="bg-gray-800 p-3 rounded-xl hover:bg-gray-700 transition-colors cursor-pointer">
+              <i data-lucide="globe" class="h-5 w-5 text-gray-400"></i>
+            </div>
+            <div class="bg-gray-800 p-3 rounded-xl hover:bg-gray-700 transition-colors cursor-pointer">
+              <i data-lucide="mail" class="h-5 w-5 text-gray-400"></i>
+            </div>
+            <div class="bg-gray-800 p-3 rounded-xl hover:bg-gray-700 transition-colors cursor-pointer">
+              <i data-lucide="phone" class="h-5 w-5 text-gray-400"></i>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-white font-bold mb-4">Services</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Web Development</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Video Editing</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Graphics Design</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Consulting</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-white font-bold mb-4">Company</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Portfolio</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="text-gray-400 mb-4 md:mb-0">
+            <p>&copy; 2025 SkillzLab. All rights reserved.</p>
+          </div>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: icons + behavior -->
+  <script>
+    // Render lucide icons
+    if (window.lucide) {
+      lucide.replace({ 'stroke-width': 1.5 });
+    }
+
+    // Header scroll behavior & mobile menu toggle
+    (function () {
+      const nav = document.getElementById('mainNav');
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      let menuOpen = false;
+
+      function onScroll() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        if (scrollY > 50) {
+          nav.classList.add('bg-white/90', 'backdrop-blur-lg', 'shadow-xl', 'border-b', 'border-gray-100');
+          nav.classList.remove('bg-transparent');
+        } else {
+          nav.classList.remove('bg-white/90', 'backdrop-blur-lg', 'shadow-xl', 'border-b', 'border-gray-100');
+          nav.classList.add('bg-transparent');
+        }
+      }
+
+      onScroll();
+      window.addEventListener('scroll', onScroll);
+
+      mobileBtn.addEventListener('click', function () {
+        menuOpen = !menuOpen;
+        if (menuOpen) {
+          mobileMenu.classList.remove('hidden');
+          // swap icon to X
+          mobileBtn.innerHTML = '<i data-lucide="x" class="h-6 w-6"></i>';
+        } else {
+          mobileMenu.classList.add('hidden');
+          mobileBtn.innerHTML = '<i data-lucide="menu" class="h-6 w-6"></i>';
+        }
+        // re-run lucide to replace new inline icon
+        if (window.lucide) { lucide.replace({ 'stroke-width': 1.5 }); }
+      });
+
+      // Close mobile menu on window resize >= md
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+          menuOpen = false;
+          mobileMenu.classList.add('hidden');
+          mobileBtn.innerHTML = '<i data-lucide="menu" class="h-6 w-6"></i>';
+          if (window.lucide) { lucide.replace({ 'stroke-width': 1.5 }); }
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
